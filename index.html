@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		.prop {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			background-image: url(korob.png);
+			background-size	:100% 100%;
+		}
+
+		.krot{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			transition: 1s;
+
+		}
+
+	</style>
+</head>
+<body>
+
+<!-- дивы норы чтобы появится -->
+<h1>Score: <span class="p">0</span></h1>
+<div class="bg-warning prop first" style="top: 320px; left: 500px"></div>
+<div class="bg-warning prop" style="top:320px; left: 700px"></div>
+<div class="bg-warning prop" style="top: 320px; left: 900px"></div>
+
+
+
+
+<script type="text/javascript">
+	let firstNora = document.querySelector(".first")
+	let score = 0
+	let point = document.querySelector(".p")
+
+	let random = function(num){
+        let rand = Math.random() * num
+        let round = Math.round(rand)
+
+        return round
+    }
+    let mas1 = [510, 710, 910]
+    let mas2 = ["хороший", "плохой"]
+
+  	let create = function () {	
+		let krot = document.createElement('div')
+		document.body.appendChild(krot)
+		krot.classList.add("krot")
+		firstNora.before(krot)
+
+		krot.style.top = "340px"
+		krot.style.left = mas1[random(2)] + "px"
+		krot.name = mas2[random(1)]
+
+		if(krot.name == "хороший"){
+			krot.style.backgroundImage = 'url(krot1.png)'				
+			krot.style.backgroundSize = '100% 100%'
+		}else if(krot.name == "плохой"){
+			krot.style.backgroundImage = 'url(tnt.webp)'				
+			krot.style.backgroundSize = '100% 100%'
+			krot.style.width = 50 + "px"
+			krot.style.height = 50 + "px"
+		}
+	
+		let see = function () {
+			krot.style.top = 200 + "px"
+		}
+		setTimeout(see, 500)
+
+		let asee = function () {
+			krot.style.top = "340px"
+		}
+		setTimeout(asee, 1500)
+
+		krot.onclick = function() {
+			if(krot.name == "плохой"){
+				asee()
+				score = score - 1
+				point.innerHTML = score
+			}else if(krot.name == "хороший"){
+				asee()
+				score = score + 1
+				point.innerHTML = score
+			}
+		}
+	}
+
+	setInterval(create, 500)
+	let timer = function(){
+		if(score >= 10){
+			alert("you win")
+		}else if (score < 10){
+			alert("you loose")
+		}
+	}
+	setTimeout(timer, 20000)
+</script>
+</body>
+</html>
